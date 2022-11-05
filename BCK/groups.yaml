@@ -1,0 +1,5 @@
+---
+
+fortinet:
+        platform: fortinet
+

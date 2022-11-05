@@ -1,0 +1,23 @@
+---
+
+#FW1:
+#  hostname: 192.168.13.220
+#  username: admin
+#  password: admin
+#  port: 22
+#  platform: fortinet
+#  data:
+#      site: 2
+#      role: firewall
+#      type: ssh
+
+FW2_http:
+  hostname: 192.168.13.220
+  username: fg-auto
+  password: "xtdfkG1Gsfx9mctd0ystQng1qtk3yj" # access token
+  port: 80
+  platform: fortinet
+  data:
+      site: 3
+      role: firewall
+      type: http
