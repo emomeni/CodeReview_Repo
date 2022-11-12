@@ -1,0 +1,21 @@
+---
+
+# hosts.yaml
+
+SW101:
+  hostname: "192.168.13.200"
+  platform: ios
+  group:
+    - switches
+  data:
+    type: ssh
+
+SW102:
+  hostname: "192.168.13.201"
+  platform: nxos
+  group:
+    - switches
+  data:
+    type: ssh
+
+
