@@ -1,0 +1,6 @@
+{% for interface in host["interfaces"] %}
+interface {{ interface.name }}{{ interface.port_slot }}
+switchport mode access
+switchport access vlan {{ interface.vlan }}
+no shutdown
+{% endfor %}
