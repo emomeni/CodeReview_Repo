@@ -1,0 +1,8 @@
+vlan 10
+ name AUTOMATION
+!
+interface eth0/1
+ switchport mode access
+ switchport access vlan 10
+ shut
+!
