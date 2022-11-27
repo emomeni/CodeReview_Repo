@@ -1,0 +1,7 @@
+{% for iface in interface_list %}
+interface {{ iface }}
+switchport protected
+spanning-tree portfast
+spanning-tree bpduguard enable
+{% endfor %}
+end
