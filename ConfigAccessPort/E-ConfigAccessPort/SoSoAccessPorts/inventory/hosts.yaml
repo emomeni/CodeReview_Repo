@@ -1,0 +1,14 @@
+---
+#SW1:
+#   hostname: 100.100.1.7
+#   username: admin
+#   password: admin
+#   platform: ios
+#   groups:
+#      - switches
+
+SW2:
+   hostname: 100.100.1.8
+   username: admin
+   password: admin
+   platform: ios
