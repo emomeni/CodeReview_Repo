@@ -1,0 +1,66 @@
+SW2:
+#  port: 32779 #check this if needed or not
+  hostname: 100.100.1.8
+  groups:
+    - nornir_labs
+  data:
+    tags:
+      - ios
+    about:
+    - caption: EHSAN-SW-NEW-14010829_0853
+    interfaces:
+#    - name: Ethernet
+#      port_slot: 0/0
+#      unused:
+    - name: Ethernet
+      port_slot: 0/1
+      mode: access
+      vlan: 350
+#    - name: Ethernet
+#      port_slot: 0/2
+#      mode: access
+#      vlan: 20
+#    - name: Ethernet
+#      port_slot: 0/3
+#      mode: trunk
+#      encapsulation: dot1q
+#      allowed_vlan: 20,108
+#      native_vlan: 108
+#    - name: Ethernet
+#      port_slot: 3/2
+#      mode: trunk
+#      encapsulation: dot1q
+#      allowed_vlan: 40,108
+#      native_vlan: 108
+#      negotiation: nonegotiate
+#    - name: vlan
+#      port_slot: 20
+#      ipv4_address: 10.10.20.10
+#      ipv4_mask: 255.255.255.0
+#  connection_options:
+#     netmiko:
+#        extras:
+#          device_type: 'cisco_ios_telnet'
+#     napalm:
+#       extras:
+#         optional_args:
+#           transport: 'telnet'
+
+SW1:
+#  port: 32779 #check this if needed or not
+  hostname: 100.100.1.7
+  groups:
+    - nornir_labs
+  data:
+    tags:
+      - ios
+    about:
+    - caption: EHSAN-MGMT-SW-NEW-14010829_0853
+    interfaces:
+#    - name: Ethernet
+#      port_slot: 0/0
+#      unused:
+    - name: Ethernet
+      port_slot: 0/2
+      mode: access
+      vlan: 485
