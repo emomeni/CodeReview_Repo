@@ -1,0 +1,41 @@
+---
+
+spine1:
+  hostname: "192.168.13.1"
+  groups:
+    - nexus
+  data:
+    - hname : "spine1"
+
+  
+
+spine2:
+  hostname: "192.168.13.2"
+  groups:
+    - nexus
+  data:
+    - hname : "spine2"
+
+mgmtsw:
+  hostname: "192.168.13.200"
+  groups:
+    - catalyst
+  data:
+    - hname : "mgmtsw"
+
+rtr:
+  hostname: "192.168.13.7"
+  groups:
+    - catalyst
+  data:
+    - hname : "rtr"
+
+
+n3ktest:
+  hostname: "172.23.254.253"
+  groups:
+    - nexus
+  username: "ali"
+  password: "ali"
+  data:
+    - hname : "n3ktest"
