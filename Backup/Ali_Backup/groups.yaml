@@ -1,0 +1,9 @@
+---
+
+nexus:
+  platform: nxos_ssh
+  port: 22
+
+catalyst:
+  platform: ios
+  port: 22
