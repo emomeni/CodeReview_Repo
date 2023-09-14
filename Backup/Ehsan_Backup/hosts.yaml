@@ -1,0 +1,22 @@
+---
+
+WAN-Router:
+    hostname: "192.168.15.26"
+
+WAN-SW-1:
+    hostname: "192.168.15.20"
+
+WAN-SW-2:
+    hostname: "192.168.15.21"
+
+WAN-SW-3:
+    hostname: "192.168.15.22"
+
+WAN-SW-4:
+    hostname: "192.168.15.23"
+
+WAN-SW-5:
+    hostname: "192.168.15.24"
+
+WAN-SW-6:
+    hostname: "192.168.15.25"
