@@ -1,0 +1,7 @@
+---
+cisco:
+  plarform: ios
+
+
+fortinet:
+  platform: fortinet
