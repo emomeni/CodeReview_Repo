@@ -1,0 +1,76 @@
+---
+
+Ext-Router:
+  hostname: 192.168.15.3
+  username: admin
+  password: admin
+  port: 22
+  platform: ios
+  data:
+      type: ssh
+
+
+Ext-FW:
+  hostname: 192.168.40.2
+  username: "fg-auto"
+  password: "bqp0H7f15hh387zgjp8w9wbj4Gby33" # access token
+  port: 80
+  platform: fortinet
+  data:
+      type: http
+      site: 3
+      role: firewall
+
+Ext-SW-main:
+  hostname: 192.168.50.2
+  username: admin
+  password: admin
+  port: 22
+  platform: ios
+  data:
+      type: ssh
+
+Ext-SW1:
+  hostname: 192.168.50.3
+  username: admin
+  password: admin
+  port: 22
+  platform: ios
+  data:
+      type: ssh
+
+Ext-SW2:
+  hostname: 192.168.50.4
+  username: admin
+  password: admin
+  port: 22
+  platform: ios
+  data:
+      type: ssh
+
+Ext-SW3:
+  hostname: 192.168.50.5
+  username: admin
+  password: admin
+  port: 22
+  platform: ios
+  data:
+      type: ssh
+
+Ext-SW4:
+  hostname: 192.168.50.6
+  username: admin
+  password: admin
+  port: 22
+  platform: ios
+  data:
+      type: ssh
+
+Ext-SW5:
+  hostname: 192.168.50.7
+  username: admin
+  password: admin
+  port: 22
+  platform: ios
+  data:
+      type: ssh
