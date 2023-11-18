@@ -75,7 +75,7 @@ def Device_Facts(task):
         check_connection= (f'/home/network-ent/Ehsan_Codes/{time_string}_results.txt')
         with open(check_connection,"a") as wr_status_summary:
             wr_status_summary.write(f"{task.host} Is OK \n\n")
-
+            
     except:
         check_connection= (f'/home/network-ent/Ehsan_Codes/{time_string}_results.txt')
         with open(check_connection,"a") as wr_status_summary:
