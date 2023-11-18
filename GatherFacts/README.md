@@ -7,6 +7,13 @@ we will have both CSV files of the gathered facts and also YAML format of them.
 ### How to Run
 to reach the final output, you need to follow the orders that will be mentioned in the following:
 
+#### Clone Repo
+   ```bash
+    git clone https://github.com/emomeni/CodeReview_Repo/tree/main/GatherFacts
+    cd GatherFacts
+
+#### Create venv
+
 * first of all, you need to run the **datagathering.py**:
    ```bash
     python3 datagathering.py
@@ -16,3 +23,5 @@ to reach the final output, you need to follow the orders that will be mentioned 
 * and finally we need to convert the csv file to YAML format by running the **csv2yaml.py** code.
      ```bash
       python3 csv2yaml.py
+
+### Install Requirements
