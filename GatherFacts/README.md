@@ -11,9 +11,20 @@ to reach the final output, you need to follow the orders that will be mentioned 
    ```bash
     git clone https://github.com/emomeni/CodeReview_Repo/tree/main/GatherFacts
     cd GatherFacts
-
+```
 #### Create venv
-
+   ```bash
+    python3 -m venv venv
+```
+#### Activate venv
+   ```bash
+    source venv/bin/activate
+```
+#### Install Requirements
+   ```bash
+    pip3 install -r requirements.txt
+```
+#### Run the Code!
 * first of all, you need to run the **datagathering.py**:
    ```bash
     python3 datagathering.py
@@ -23,5 +34,3 @@ to reach the final output, you need to follow the orders that will be mentioned 
 * and finally we need to convert the csv file to YAML format by running the **csv2yaml.py** code.
      ```bash
       python3 csv2yaml.py
-
-### Install Requirements
