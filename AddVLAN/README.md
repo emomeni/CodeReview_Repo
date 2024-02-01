@@ -1,5 +1,5 @@
 # Create a normal vlan or Community vlan on DC Switches
-This program adds your switch a new vlan. It can be a normal or community vlan. That is designed only for Sadad datacenter in present situation.
+This program adds your switch a new vlan. It can be a normal or community vlan.
 ## Description
 The program uses **"nornir_netmiko"** library. The program assumes that all primary vlans and below Ranges are set up on the swithes.
 The program add the vlan in Fabricpath mode on leaf and spine switches and in CE mode on access switches. if a vlan is repititous, the program will warn you, if it has a new name the program adds the vlan with new name. 
