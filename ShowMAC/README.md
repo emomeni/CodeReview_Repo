@@ -9,6 +9,7 @@ if the program can't find the MAC address or connect to the switch, it will let 
 
 - by using the **Replace** module, we will replace the **unwanted sections** with **white spaces**.
 
+- for **Error Handling**, we use the **try...except** in the code. we have placed the code that might generate an exception inside the **try** block. every **try** block is followed by an **except** block.
 
 ### Dependencies
 * Prerequisites:
