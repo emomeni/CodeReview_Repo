@@ -21,8 +21,8 @@ to reach the final output, you need to follow the orders that will be mentioned 
 
 #### Clone Repo
    ```bash
-    git clone https://github.com/emomeni/CodeReview_Repo/blob/main/ShowMAC/showmac.py
-    cd showmac
+    git clone https://github.com/emomeni/CodeReview_Repo/tree/main/ShowMAC
+    cd ShowMAC
 ```
 #### Create venv
    ```bash
