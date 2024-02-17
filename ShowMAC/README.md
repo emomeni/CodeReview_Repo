@@ -8,7 +8,7 @@ if the program can't find the MAC address or connect to the switch, it will let 
 ### Dependencies
 * Prerequisites:
   - Ubuntu
-  - python3
+  - Python3
 
 ### How to Run
 to reach the final output, you need to follow the orders that will be mentioned in the following:
