@@ -31,6 +31,6 @@ to reach the final output, you need to follow the orders that will be mentioned 
     pip3 install -r requirements.txt
 ```
 #### Run the Code!
-* first of all, you need to run the **datagathering.py**:
+* for finding the specific MAC Address, you need to run the **showmac.py**:
    ```bash
     python3 showmac.py
