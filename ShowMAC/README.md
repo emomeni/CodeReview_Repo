@@ -2,10 +2,13 @@
 This Code will search for a MAC address in the network and find all the ports that already learn the MAC address.
 
 ## Description
-The program uses **"nornir_netmiko"** library. It shows you the ports and the configuration of Physical ports that learn your given MAC address.
+- The program uses **"nornir_netmiko"** library. It shows you the ports and the configuration of Physical ports that learn your given MAC address.
 if the program can't find the MAC address or connect to the switch, it will let you know with a message.
 
-by using the **netmiko_send_command** module, we are going to send the **show mac address-table** command to the inventory for finding the mac address that we are searching for.
+- by using the **netmiko_send_command** module, we are going to send the **show mac address-table** command to the inventory to find the mac address that we are searching for.
+
+- by using the **Replace** module, we will replace the **unwanted sections** with **white spaces**.
+
 
 ### Dependencies
 * Prerequisites:
