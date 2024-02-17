@@ -4,6 +4,7 @@ This Code will search for a MAC address in the network and find all the ports th
 ## Description
 The program uses **"nornir_netmiko"** library. It shows you the ports and the configuration of Physical ports that learn your given MAC address.
 if the program can't find the MAC address or connect to the switch, it will let you know with a message.
+by using the **netmiko_send_command** module, we are going to send the **show mac address-table** command to the inventory for finding the mac address that we are searching for.
 
 ### Dependencies
 * Prerequisites:
@@ -31,6 +32,6 @@ to reach the final output, you need to follow the orders that will be mentioned 
     pip3 install -r requirements.txt
 ```
 #### Run the Code!
-* for finding the specific MAC Address, you need to run the **showmac.py**:
+* To find the specific MAC Address, you need to run the **showmac.py**:
    ```bash
     python3 showmac.py
