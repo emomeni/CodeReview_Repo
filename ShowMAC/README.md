@@ -4,7 +4,8 @@ This code is going to find if a mac address exists on mac address table of devic
 ## Description
 This code uses "nornir_netmiko" library, also the rich library is used for rich text and beautiful formatting in the terminal.
 
-A function called "showmac" contains two main variables "getmac" and "getint". getmac uses the "netmiko_send_command" module to send the "show mac address-table" command to the inventory for finding the mac address that we are searching for and stores the facts of it to the "devicemac" variable. 
+A function called "showmac" contains two main variables "getmac" and "getint". getmac uses the "netmiko_send_command" module to send the "show mac address-table" command to the inventory for finding the mac address that we are searching for and stores the facts of it to the "devicemac" variable.
+
 Since we need the configuration of interfaces that have learnt the mac address to show in the result, so we use the getint variable to send the "show run interface {name of interface}" command to retrieve the configuration and store it in intdescription variable.
 
 The "showmac" function will take the mac address as input and show the result in below format:
