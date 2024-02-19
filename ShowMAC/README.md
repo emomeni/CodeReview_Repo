@@ -16,7 +16,10 @@ if the program can't find the MAC address or connect to the switch, it will let 
   - Ubuntu
   - Python3
 
-### How to Run
+## Functions:
+the showmac function will find the mac address on all the ports it has been learned from and also show the related interface configuration.
+
+## How to Run
 to reach the final output, you need to follow the orders that will be mentioned in the following:
 
 #### Clone Repo
