@@ -6,7 +6,7 @@ This code uses "nornir_netmiko" library, also the rich library is used for rich 
 
 A function called "showmac" contains two main variables "getmac" and "getint". getmac uses the "netmiko_send_command" module to send the "show mac address-table" command to the inventory for finding the mac address that we are searching for and stores the facts of it to the "devicemac" variable.
 
-Since we need the configuration of interfaces that have learnt the mac address to show in the result, so we use the getint variable to send the "show run interface {name of interface}" command to retrieve the configuration and store it in intdescription variable.
+Since we need the configuration of interfaces that have learnt the mac address to show in the result, so we use the getint variable to send the "show run interface {name of interface}" command to retrieve the configuration and stores it in "intdescription" variable.
 
 The "showmac" function will take the mac address as input and show the result in below format:
 * If the mac address is found, the result will be shown in green color in order of: “device name: VLAN number, mac address, age time and configuration of interfaces which have learnt it”.
