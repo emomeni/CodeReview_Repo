@@ -1,23 +1,25 @@
 # Find a MAC Address in the Network
-This Code will search for a MAC address in the network and find all the ports that already learn the MAC address.
+This code is going to find if a mac address exists on mac address table of devices and which ports have learnt it. When a user runs this code, it will take the mac address as an input and show the result.
 
 ## Description
-- The program uses **"nornir_netmiko"** library. It shows you the ports and the configuration of Physical ports that learn your given MAC address.
-if the program can't find the MAC address or connect to the switch, it will let you know with a message.
+This code uses "nornir_netmiko" library, also the rich library is used for rich text and beautiful formatting in the terminal.
 
-- by using the **netmiko_send_command** module, we are going to send the **show mac address-table** command to the inventory to find the mac address that we are searching for.
+A function called "showmac" contains two main variables "getmac" and "getint". getmac uses the "netmiko_send_command" module to send the "show mac address-table" command to the inventory for finding the mac address that we are searching for and stores the facts of it to the "devicemac" variable. 
+Since we need the configuration of interfaces that have learnt the mac address to show in the result, so we use the getint variable to send the "show run interface {name of interface}" command to retrieve the configuration and store it in intdescription variable.
 
-- by using the **Replace** module, we will replace the **unwanted sections** with **white spaces**.
+The "showmac" function will take the mac address as input and show the result in below format:
+* If the mac address is found, the result will be shown in green color in order of: “device name: VLAN number, mac address, age time and configuration of interfaces which have learnt it”.
+* If the mac address is not found, the result will be shown in red color: “device name: There is no MAC like this”.
+* If the connection to the device is not established, the result will be shown in yellow color: “device name: I can't connect".
 
-- for **Error Handling**, we use the **try...except** in the code. we have placed the code that might generate an exception inside the **try** block. every **try** block is followed by an **except** block.
+Since the result of the "show mac address-table" command contains extra information which is not necessary to show as a result, in the "showmac" function, we use the "Replace" module to replace the extra sections with white spaces.
 
-### Dependencies
+For Error Handling, we use the "try/except". We have placed the code that might generate an exception inside the try block. every try block is followed by an except block.
+
+## Dependencies
 * Prerequisites:
   - Ubuntu
   - Python3
-
-## Functions:
-the showmac function will find the mac address on all the ports it has been learned from and also show the related interface configuration.
 
 ## How to Run
 to reach the final output, you need to follow the orders that will be mentioned in the following:
