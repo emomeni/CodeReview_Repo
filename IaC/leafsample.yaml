@@ -1,0 +1,198 @@
+---
+- name: Configure Cisco Nexus Switch - Template
+  hosts: leafs
+  gather_facts: no
+  connection: network_cli
+
+  vars:
+    ansible_user: "test"
+    ansible_ssh_pass: "test"
+    ansible_user_role: "network-admin"
+    #anycast_gw_address: "0000.1111.2222"
+    rp_ip_address: "10.255.255.255"
+    mgroup: "224.0.0.0/4"
+    vlan_config:
+      - { number: 10, vnid: 100010 }
+      - { number: 20, vnid: 100020 }
+      - { number: 999, vnid: 1000999 }
+    vrf_config:
+      - { name: "management", vni: "default", rd: "default", address_family: "ipv4" }
+      - { name: "opration", vni: 1000999, rd: "auto", address_family: "ipv4" }
+    interface_config:
+      - { name: "Ethernet1/1", vrf: "opration", ip: "10.1.1.1", mask: "24", mode: "True", ospf_process: 1, ospf_area: 0, pim_mode: "sparse-mode", description: "Uplink to Router" }
+      - { name: "Ethernet1/2", vrf: "opration", ip: "20.1.1.1", mask: "24", mode: "True", ospf_process: 1, ospf_area: 0, pim_mode: "sparse-mode", description: "Uplink to Router" }
+    vpc_domain: 1
+    peer_keepalive_dst: "10.1.1.2"
+    management: "mgmt0"
+    delay_restore: 300
+    auto_recovery_reload_delay: 240
+    ebgp_as_number: 65000
+    ebgp_rid: "10.1.1.1"
+    ebgp_peer_asn: 65001
+    ebgp_neighbor_template: "EBGP_TEMPLATE"
+    ebgp_multihop_value: 2
+    #ebgp_adv_networks: ["10.1.1.0/24", "20.1.1.0/24"]
+
+  tasks:
+    - name: Set hostname
+      cisco.nxos.nxos_system:
+        hostname: "leaf-3"
+
+    - name: Enable necessary features
+      cisco.nxos.nxos_feature:
+        feature: "{{ item }}"
+        state: enabled
+      loop:
+        - nv overlay
+        - ospf
+        - bgp
+        - pim
+        - interface-vlan
+        - vn-segment-vlan-based
+        - lacp
+        - vpc
+
+    - name: Create user account
+      cisco.nxos.nxos_user:
+        name: "{{ ansible_user }}"
+        configured_password: "{{ ansible_ssh_pass }}"
+        role: "{{ ansible_user_role }}"
+
+    - name: Configure Anycast Gateway MAC
+      cisco.nxos.nxos_config:
+        lines:
+          - nv overlay evpn
+          - fabric forwarding anycast-gateway-mac 0000.1111.2222
+
+    - name: Configure PIM RP address
+      cisco.nxos.nxos_pim_rp_address:
+        rp_address: "{{ rp_ip_address }}"
+        group_list: "{{ mgroup }}"
+
+    - name: Configure VLANs and VN-segments
+      cisco.nxos.nxos_vlans:
+        config:
+          - vlan_id: "{{ item.number }}"
+            state: active
+            mapped_vni: "{{ item.vnid }}"
+      loop: "{{ vlan_config }}"
+
+    - name: Configure VRFs
+      cisco.nxos.nxos_vrf:
+        aggregate:
+          - name: "{{ item.name }}"
+            vni: "{{ item.vni }}"
+            rd: "{{ item.rd }}"
+      loop: "{{ vrf_config }}"
+
+    # - name: Configure VRFs Address Family Identifier
+    #   cisco.nxos.nxos_vrf_af:
+    #     vrf: "{{ item.name }}"
+    #     afi: "{{ item.address_family }}"
+    #     route_target_both_auto_evpn: true
+    #   loop: "{{ vrf_config }}"
+
+    # - name: Configure interfaces with IP settings
+    #   cisco.nxos.nxos_l3_interfaces:
+    #     config:
+    #       - name: "{{ item.name }}"
+    #         ipv4:
+    #           - address: "{{ item.ip }}"
+    #   loop: "{{ interface_config }}"
+
+    # - name: Configure interfaces name and description
+    #   cisco.nxos.nxos_interfaces:
+    #     config:
+    #       - name: "{{ item.name }}"
+    #         description: "{{ item.description }}"
+    #         fabric_forwarding_anycast_gateway: "{{ item.mode }}"
+    #   loop: "{{ interface_config }}"
+
+    # - name: Configure interfaces with VRF Interface
+    #   cisco.nxos.nxos_vrf_interface:
+    #     name: "{{ item.name }}"
+    #     vrf: "{{ item.vrf }}"
+    #     description: "{{ item.description }}"
+    #   loop: "{{ interface_config }}"
+
+    - name: Configure OSPF process
+      cisco.nxos.nxos_ospfv2:
+        config:
+          processes:
+            - process_id: 1
+              router_id: "{{ ebgp_rid }}"
+
+    # - name: Configure OSPF interfaces
+    #   cisco.nxos.nxos_ospf_interfaces:
+    #     process_id: 1
+    #     interfaces:
+    #       - name: "{{ item.name }}"
+    #         area: "{{ item.ospf_area }}"
+    #         network_type: "point-to-point"
+    #   loop: "{{ interface_config }}"
+
+    # - name: Configure PIM on interfaces
+    #   cisco.nxos.nxos_pim_interface:
+    #     config:
+    #       - name: "{{ item.name }}"
+    #         mode: "{{ item.pim_mode }}"
+    #   loop: "{{ interface_config }}"
+
+    - name: Configure BGP address family
+      cisco.nxos.nxos_bgp_address_family:
+        config:
+          as_number: "{{ ebgp_as_number }}"
+          address_family:
+            - afi: "ipv4"
+              safi: "unicast"
+              networks:
+                - prefix: 10.1.1.0/24
+                - prefix: 20.1.1.0/24
+              # vrf: "default"
+      tags: configure_bgp_af
+
+    - name: Configure BGP templates
+      cisco.nxos.nxos_bgp_templates:
+        config:
+          as_number: "{{ ebgp_as_number }}"
+          neighbor:
+            - name: "{{ ebgp_neighbor_template }}"
+              remote_as: "{{ ebgp_peer_asn }}"
+              # update_source: "{{ management }}" 
+              address_family:
+                - afi: "ipv4"
+                  safi: "unicast"
+                  send_community: "extended"
+      tags: configure_bgp_template
+
+# Need to Revise
+    - name: Configure BGP neighbor address family
+      cisco.nxos.nxos_bgp_neighbor_address_family:
+        config:
+          as_number: "{{ ebgp_as_number }}"
+          neighbors:
+            - neighbor_address: "{{ peer_keepalive_dst }}"
+              # update_source: "{{ management }}"
+              address_family:
+                - afi: "ipv4"
+                  safi: "unicast"              
+                  inherit:
+                    template: "{{ ebgp_neighbor_template }}"
+              # activate: true
+              # ebgp_multihop: "{{ ebgp_multihop_value }}"
+      tags: configure_bgp_af_neighbor
+# Need to Revise
+
+    # - name: Configure VPC domain
+    #   cisco.nxos.nxos_vpc:
+    #     domain: "{{ vpc_domain }}"
+    #     pkl_dest: "{{ peer_keepalive_dst }}"
+    #     pkl_src: "{{ management }}"
+    #     delay_restore: "{{ delay_restore }}"
+    #     auto_recovery_reload_delay: "{{ auto_recovery_reload_delay }}"
+    #   tags: vpc
+
+    # - name: Configure VPC on interfaces
+    #   cisco.nxos.nxos_vpc_interface:
+    #     portchannel: 10
+    #     vpc: 1
